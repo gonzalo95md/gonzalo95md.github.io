@@ -3,39 +3,209 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gonzalo</title>
+  <title>Gonzalo | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --azul: #1f4e79;
+      --azul-claro: #2f6fa7;
+      --gris-oscuro: #2b2f36;
+      --gris-medio: #5f6672;
+      --gris-claro: #eef1f5;
+      --borde: #d5dae1;
+      --blanco: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      background: var(--gris-claro);
+      color: var(--gris-oscuro);
+      line-height: 1.7;
+    }
+    a { color: var(--azul-claro); }
+
+    /* Menú */
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--gris-oscuro);
+      box-shadow: 0 2px 6px rgba(0,0,0,.25);
+    }
+    .nav-inner {
+      max-width: 960px; margin: 0 auto; padding: 0 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .logo { color: var(--blanco); font-weight: 700; padding: 16px 0; text-decoration: none; }
+    .menu { list-style: none; display: flex; flex-wrap: wrap; gap: 4px; }
+    .menu > li { position: relative; }
+    .menu a, .menu button {
+      display: block; padding: 18px 14px;
+      color: #dfe4ea; background: none; border: 0;
+      font: inherit; font-size: .95rem; font-weight: 500;
+      text-decoration: none; cursor: pointer;
+    }
+    .menu a:hover, .menu button:hover { color: var(--blanco); background: var(--azul); }
+    .dropdown {
+      display: none; position: absolute; right: 0; top: 100%;
+      min-width: 260px; list-style: none;
+      background: var(--blanco); border: 1px solid var(--borde);
+      border-top: 3px solid var(--azul);
+      box-shadow: 0 8px 20px rgba(0,0,0,.15);
+    }
+    .dropdown.abierto { display: block; }
+    .dropdown a { color: var(--gris-oscuro); padding: 12px 16px; border-bottom: 1px solid var(--gris-claro); }
+    .dropdown a:hover { background: var(--gris-claro); color: var(--azul); }
+    .dropdown .pronto { color: var(--gris-medio); font-style: italic; padding: 12px 16px; font-size: .9rem; }
+
+    /* Cabecera */
+    header {
+      background: linear-gradient(135deg, var(--azul), var(--gris-oscuro));
+      color: var(--blanco); text-align: center; padding: 70px 20px;
+    }
+    header h1 { font-size: 2.6rem; letter-spacing: .5px; }
+    header p { margin-top: 10px; color: #cbd6e2; font-size: 1.1rem; }
+
+    /* Contenido */
+    main { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
+    section {
+      background: var(--blanco); border: 1px solid var(--borde);
+      border-left: 5px solid var(--azul);
+      border-radius: 6px; padding: 28px 32px; margin-bottom: 28px;
+    }
+    section h2 { color: var(--azul); margin-bottom: 14px; font-size: 1.5rem; }
+    section ul { padding-left: 22px; }
+    section li { margin-bottom: 8px; }
+
+    /* Formulario */
+    form { display: grid; gap: 16px; }
+    label { font-weight: 600; font-size: .9rem; color: var(--gris-medio); display: block; margin-bottom: 4px; }
+    input, textarea {
+      width: 100%; padding: 11px 12px;
+      border: 1px solid var(--borde); border-radius: 4px;
+      font: inherit; background: var(--gris-claro);
+    }
+    input:focus, textarea:focus {
+      outline: 2px solid var(--azul-claro); background: var(--blanco);
+    }
+    textarea { min-height: 140px; resize: vertical; }
+    .oculto { position: absolute; left: -9999px; }
+    button.enviar {
+      justify-self: start; background: var(--azul); color: var(--blanco);
+      border: 0; border-radius: 4px; padding: 12px 28px;
+      font: inherit; font-weight: 600; cursor: pointer;
+    }
+    button.enviar:hover { background: var(--azul-claro); }
+
+    footer {
+      background: var(--gris-oscuro); color: #cfd5dd;
+      text-align: center; padding: 24px 20px; font-size: .95rem;
+    }
+    footer a { color: #8fb8de; }
+
+    @media (max-width: 640px) {
+      .nav-inner { justify-content: center; }
+      .dropdown { right: auto; left: 0; }
+      header h1 { font-size: 2rem; }
+      section { padding: 22px 18px; }
+    }
+  </style>
 </head>
 <body>
 
-  <header>
+  <nav>
+    <div class="nav-inner">
+      <a class="logo" href="#inicio">Gonzalo</a>
+      <ul class="menu">
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#habilidades">Habilidades</a></li>
+        <li>
+          <button id="btn-portfolio" aria-haspopup="true" aria-expanded="false">Portfolio &#9662;</button>
+          <ul class="dropdown" id="menu-portfolio">
+            <li><a href="https://github.com/gonzalo95md/programacion-dam" target="_blank" rel="noopener">Programación DAM</a></li>
+            <!-- Añade aquí tus futuros repositorios copiando esta línea:
+            <li><a href="https://github.com/gonzalo95md/NOMBRE-REPO" target="_blank" rel="noopener">Nombre del proyecto</a></li>
+            -->
+            <li class="pronto">Más proyectos próximamente...</li>
+          </ul>
+        </li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header id="inicio">
     <h1>Gonzalo</h1>
+    <p>Estudiante de Desarrollo de Aplicaciones Multiplataforma</p>
   </header>
 
-  <section>
-    <h2>Sobre mí</h2>
-    <p>Soy estudiante de Desarrollo de Aplicaciones Multiplataforma (DAM). Me interesa la programación y estoy aprendiendo Java, bucles, arrays y control de versiones con Git y GitHub.</p>
-  </section>
+  <main>
+    <section id="sobre-mi">
+      <h2>Sobre mí</h2>
+      <p>Soy estudiante de Desarrollo de Aplicaciones Multiplataforma (DAM). Me interesa la programación y estoy aprendiendo Java, bucles, arrays y control de versiones con Git y GitHub.</p>
+    </section>
 
-  <section>
-    <h2>Proyectos</h2>
-    <ul>
-      <li>Programación DAM: ejercicios de bucles y arrays en Java (repositorio <code>programacion-dam</code>).</li>
-      <li>Gestor de tareas: práctica para aprender Git y GitHub.</li>
-    </ul>
-  </section>
+    <section id="proyectos">
+      <h2>Proyectos</h2>
+      <ul>
+        <li><a href="https://github.com/gonzalo95md/programacion-dam" target="_blank" rel="noopener">Programación DAM</a>: ejercicios de bucles y arrays en Java.</li>
+        <li>Gestor de tareas: práctica para aprender Git y GitHub.</li>
+      </ul>
+    </section>
 
-  <section>
-    <h2>Habilidades</h2>
-    <ul>
-      <li>Java: bucles, arrays y fundamentos de programación.</li>
-      <li>Git y GitHub: control de versiones y publicación con GitHub Pages.</li>
-      <li>HTML: estructura básica de páginas web.</li>
-    </ul>
-  </section>
+    <section id="habilidades">
+      <h2>Habilidades</h2>
+      <ul>
+        <li>Java: bucles, arrays y fundamentos de programación.</li>
+        <li>Git y GitHub: control de versiones y publicación con GitHub Pages.</li>
+        <li>HTML y CSS: estructura y estilo de páginas web.</li>
+      </ul>
+    </section>
+
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <form action="https://formspree.io/f/TU_ID_AQUI" method="POST">
+        <div>
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" required>
+        </div>
+        <div>
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+          <label for="asunto">Asunto</label>
+          <input type="text" id="asunto" name="asunto">
+        </div>
+        <div>
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" required></textarea>
+        </div>
+        <input type="text" name="_gotcha" class="oculto" tabindex="-1" autocomplete="off">
+        <button type="submit" class="enviar">Enviar mensaje</button>
+      </form>
+    </section>
+  </main>
 
   <footer>
     <p>Contacto: <a href="https://github.com/gonzalo95md">github.com/gonzalo95md</a></p>
   </footer>
+
+  <script>
+    var btn = document.getElementById('btn-portfolio');
+    var menu = document.getElementById('menu-portfolio');
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var abierto = menu.classList.toggle('abierto');
+      btn.setAttribute('aria-expanded', abierto);
+    });
+    document.addEventListener('click', function () {
+      menu.classList.remove('abierto');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  </script>
 
 </body>
 </html>
