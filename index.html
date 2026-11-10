@@ -6,127 +6,179 @@
   <title>Gonzalo | Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --azul: #1f4e79;
       --azul-claro: #2f6fa7;
-      --gris-oscuro: #2b2f36;
-      --gris-medio: #5f6672;
-      --gris-claro: #eef1f5;
-      --borde: #d5dae1;
+      --azul-suave: #e6eef7;
+      --gris-900: #1e2229;
+      --gris-700: #3a404a;
+      --gris-500: #5f6672;
+      --gris-200: #d5dae1;
+      --gris-100: #eef1f5;
       --blanco: #ffffff;
+      --sombra: 0 4px 16px rgba(30, 34, 41, .08);
+      --sombra-alta: 0 12px 28px rgba(30, 34, 41, .16);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
     body {
       font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-      background: var(--gris-claro);
-      color: var(--gris-oscuro);
-      line-height: 1.7;
+      background: var(--gris-100); color: var(--gris-700); line-height: 1.7;
     }
     a { color: var(--azul-claro); }
+    .contenedor { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
 
-    /* Menú */
+    /* ---------- Menú ---------- */
     nav {
-      position: sticky; top: 0; z-index: 10;
-      background: var(--gris-oscuro);
-      box-shadow: 0 2px 6px rgba(0,0,0,.25);
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(30, 34, 41, .96); backdrop-filter: blur(6px);
+      box-shadow: 0 2px 10px rgba(0,0,0,.25);
     }
-    .nav-inner {
-      max-width: 960px; margin: 0 auto; padding: 0 20px;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    .logo { color: var(--blanco); font-weight: 700; padding: 16px 0; text-decoration: none; }
-    .menu { list-style: none; display: flex; flex-wrap: wrap; gap: 4px; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; min-height: 60px; }
+    .logo { color: var(--blanco); font-weight: 800; font-size: 1.15rem; text-decoration: none; letter-spacing: .5px; }
+    .logo span { color: #7fb2e5; }
+    .menu { list-style: none; display: flex; gap: 4px; align-items: center; }
     .menu > li { position: relative; }
-    .menu a, .menu button {
-      display: block; padding: 18px 14px;
+    .menu a, .menu button.enlace {
+      display: block; padding: 10px 14px; border-radius: 6px;
       color: #dfe4ea; background: none; border: 0;
-      font: inherit; font-size: .95rem; font-weight: 500;
-      text-decoration: none; cursor: pointer;
+      font: inherit; font-size: .93rem; font-weight: 500; text-decoration: none; cursor: pointer;
+      transition: background .2s, color .2s;
     }
-    .menu a:hover, .menu button:hover { color: var(--blanco); background: var(--azul); }
+    .menu a:hover, .menu button.enlace:hover { color: var(--blanco); background: var(--azul); }
     .dropdown {
-      display: none; position: absolute; right: 0; top: 100%;
-      min-width: 260px; list-style: none;
-      background: var(--blanco); border: 1px solid var(--borde);
-      border-top: 3px solid var(--azul);
-      box-shadow: 0 8px 20px rgba(0,0,0,.15);
+      display: none; position: absolute; right: 0; top: calc(100% + 8px);
+      min-width: 270px; list-style: none; padding: 6px;
+      background: var(--blanco); border-radius: 8px;
+      border-top: 3px solid var(--azul); box-shadow: var(--sombra-alta);
     }
     .dropdown.abierto { display: block; }
-    .dropdown a { color: var(--gris-oscuro); padding: 12px 16px; border-bottom: 1px solid var(--gris-claro); }
-    .dropdown a:hover { background: var(--gris-claro); color: var(--azul); }
-    .dropdown .pronto { color: var(--gris-medio); font-style: italic; padding: 12px 16px; font-size: .9rem; }
+    .dropdown a { color: var(--gris-700); padding: 10px 12px; }
+    .dropdown a:hover { background: var(--azul-suave); color: var(--azul); }
+    .dropdown .pronto { color: var(--gris-500); font-style: italic; padding: 10px 12px; font-size: .88rem; }
+    .hamburguesa { display: none; background: none; border: 0; color: var(--blanco); font-size: 1.6rem; cursor: pointer; padding: 6px 10px; }
 
-    /* Cabecera */
+    /* ---------- Portada ---------- */
     header {
-      background: linear-gradient(135deg, var(--azul), var(--gris-oscuro));
-      color: var(--blanco); text-align: center; padding: 70px 20px;
+      background: linear-gradient(135deg, var(--azul) 0%, var(--gris-900) 100%);
+      color: var(--blanco); text-align: center; padding: 90px 24px 100px;
     }
-    header h1 { font-size: 2.6rem; letter-spacing: .5px; }
-    header p { margin-top: 10px; color: #cbd6e2; font-size: 1.1rem; }
+    .avatar {
+      width: 104px; height: 104px; margin: 0 auto 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem; font-weight: 800; color: var(--azul);
+      background: var(--blanco); border: 4px solid rgba(255,255,255,.35);
+      box-shadow: 0 8px 24px rgba(0,0,0,.3);
+    }
+    header h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: .3px; }
+    header p { margin: 10px auto 30px; max-width: 560px; color: #c9d6e4; font-size: 1.1rem; }
+    .botones { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 12px 28px; border-radius: 6px;
+      font-weight: 600; font-size: .95rem; text-decoration: none; transition: transform .2s, background .2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-principal { background: var(--blanco); color: var(--azul); }
+    .btn-principal:hover { background: var(--azul-suave); }
+    .btn-secundario { border: 2px solid rgba(255,255,255,.6); color: var(--blanco); }
+    .btn-secundario:hover { background: rgba(255,255,255,.12); }
 
-    /* Contenido */
-    main { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
-    section {
-      background: var(--blanco); border: 1px solid var(--borde);
-      border-left: 5px solid var(--azul);
-      border-radius: 6px; padding: 28px 32px; margin-bottom: 28px;
+    /* ---------- Secciones ---------- */
+    main { padding: 20px 0 50px; }
+    section { padding: 50px 0 10px; }
+    section h2 {
+      color: var(--gris-900); font-size: 1.7rem; font-weight: 700; margin-bottom: 24px;
+      display: flex; align-items: center; gap: 14px;
     }
-    section h2 { color: var(--azul); margin-bottom: 14px; font-size: 1.5rem; }
-    section ul { padding-left: 22px; }
-    section li { margin-bottom: 8px; }
+    section h2::after { content: ""; flex: 1; height: 2px; background: var(--gris-200); }
+    section h2::before { content: ""; width: 6px; height: 28px; background: var(--azul); border-radius: 3px; }
+    .panel {
+      background: var(--blanco); border: 1px solid var(--gris-200);
+      border-radius: 10px; padding: 30px 34px; box-shadow: var(--sombra);
+    }
+
+    /* Habilidades */
+    .chips { display: flex; flex-wrap: wrap; gap: 12px; list-style: none; }
+    .chips li {
+      background: var(--azul-suave); color: var(--azul); font-weight: 600; font-size: .92rem;
+      padding: 9px 18px; border-radius: 999px; border: 1px solid #c3d6ea;
+    }
+
+    /* Tarjetas de proyectos */
+    .tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 22px; }
+    .tarjeta {
+      background: var(--blanco); border: 1px solid var(--gris-200); border-top: 4px solid var(--azul);
+      border-radius: 10px; padding: 26px; box-shadow: var(--sombra);
+      display: flex; flex-direction: column; transition: transform .25s, box-shadow .25s;
+    }
+    .tarjeta:hover { transform: translateY(-5px); box-shadow: var(--sombra-alta); }
+    .tarjeta h3 { color: var(--gris-900); font-size: 1.15rem; margin-bottom: 8px; }
+    .tarjeta p { font-size: .95rem; color: var(--gris-500); flex: 1; }
+    .etiquetas { display: flex; gap: 8px; margin: 14px 0; flex-wrap: wrap; }
+    .etiquetas span { font-size: .75rem; font-weight: 600; background: var(--gris-100); color: var(--gris-500); padding: 3px 10px; border-radius: 4px; }
+    .enlaces { display: flex; gap: 18px; font-weight: 600; font-size: .9rem; }
+    .enlaces a { text-decoration: none; }
+    .enlaces a:hover { text-decoration: underline; }
 
     /* Formulario */
-    form { display: grid; gap: 16px; }
-    label { font-weight: 600; font-size: .9rem; color: var(--gris-medio); display: block; margin-bottom: 4px; }
+    form { display: grid; gap: 18px; }
+    .fila { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    label { display: block; font-weight: 600; font-size: .85rem; color: var(--gris-500); margin-bottom: 5px; }
     input, textarea {
-      width: 100%; padding: 11px 12px;
-      border: 1px solid var(--borde); border-radius: 4px;
-      font: inherit; background: var(--gris-claro);
+      width: 100%; padding: 12px 14px; font: inherit; color: var(--gris-900);
+      background: var(--gris-100); border: 1px solid var(--gris-200); border-radius: 6px;
+      transition: border-color .2s, background .2s;
     }
-    input:focus, textarea:focus {
-      outline: 2px solid var(--azul-claro); background: var(--blanco);
-    }
-    textarea { min-height: 140px; resize: vertical; }
+    input:focus, textarea:focus { outline: none; border-color: var(--azul-claro); background: var(--blanco); box-shadow: 0 0 0 3px rgba(47,111,167,.18); }
+    textarea { min-height: 150px; resize: vertical; }
     .oculto { position: absolute; left: -9999px; }
     button.enviar {
       justify-self: start; background: var(--azul); color: var(--blanco);
-      border: 0; border-radius: 4px; padding: 12px 28px;
-      font: inherit; font-weight: 600; cursor: pointer;
+      border: 0; border-radius: 6px; padding: 13px 32px; font: inherit; font-weight: 600; cursor: pointer;
+      transition: background .2s, transform .2s;
     }
-    button.enviar:hover { background: var(--azul-claro); }
+    button.enviar:hover { background: var(--azul-claro); transform: translateY(-2px); }
 
-    footer {
-      background: var(--gris-oscuro); color: #cfd5dd;
-      text-align: center; padding: 24px 20px; font-size: .95rem;
-    }
+    /* Pie */
+    footer { background: var(--gris-900); color: #b9c1cc; text-align: center; padding: 30px 24px; font-size: .92rem; }
     footer a { color: #8fb8de; }
 
-    @media (max-width: 640px) {
-      .nav-inner { justify-content: center; }
-      .dropdown { right: auto; left: 0; }
-      header h1 { font-size: 2rem; }
-      section { padding: 22px 18px; }
+    /* ---------- Móvil ---------- */
+    @media (max-width: 720px) {
+      .hamburguesa { display: block; }
+      .menu {
+        display: none; position: absolute; top: 60px; left: 0; right: 0;
+        flex-direction: column; align-items: stretch; padding: 10px 16px 16px;
+        background: var(--gris-900);
+      }
+      .menu.abierto { display: flex; }
+      .dropdown { position: static; box-shadow: none; margin-top: 4px; }
+      .fila { grid-template-columns: 1fr; }
+      .panel { padding: 22px 20px; }
+      header { padding: 60px 20px 70px; }
     }
   </style>
 </head>
 <body>
 
   <nav>
-    <div class="nav-inner">
-      <a class="logo" href="#inicio">Gonzalo</a>
-      <ul class="menu">
+    <div class="contenedor nav-inner">
+      <a class="logo" href="#inicio">Gonzalo<span>.dev</span></a>
+      <button class="hamburguesa" id="btn-menu" aria-label="Abrir menú" aria-expanded="false">&#9776;</button>
+      <ul class="menu" id="menu">
         <li><a href="#sobre-mi">Sobre mí</a></li>
         <li><a href="#habilidades">Habilidades</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
         <li>
-          <button id="btn-portfolio" aria-haspopup="true" aria-expanded="false">Portfolio &#9662;</button>
+          <button class="enlace" id="btn-portfolio" aria-haspopup="true" aria-expanded="false">Portfolio &#9662;</button>
           <ul class="dropdown" id="menu-portfolio">
             <li><a href="https://github.com/gonzalo95md/programacion-dam" target="_blank" rel="noopener">Programación DAM</a></li>
-            <!-- Añade aquí tus futuros repositorios copiando esta línea:
-            <li><a href="https://github.com/gonzalo95md/NOMBRE-REPO" target="_blank" rel="noopener">Nombre del proyecto</a></li>
+            <li><a href="https://gonzalo95md.github.io/dado/" target="_blank" rel="noopener">Dado</a></li>
+            <li><a href="https://gonzalo95md.github.io/conversor/" target="_blank" rel="noopener">Conversor de temperatura</a></li>
+            <!-- Añade aquí tus futuros proyectos copiando esta línea:
+            <li><a href="URL" target="_blank" rel="noopener">Nombre del proyecto</a></li>
             -->
             <li class="pronto">Más proyectos próximamente...</li>
           </ul>
@@ -137,73 +189,137 @@
   </nav>
 
   <header id="inicio">
+    <div class="avatar">G</div>
     <h1>Gonzalo</h1>
-    <p>Estudiante de Desarrollo de Aplicaciones Multiplataforma</p>
+    <p>Estudiante de Desarrollo de Aplicaciones Multiplataforma. Aprendiendo a crear software, paso a paso.</p>
+    <div class="botones">
+      <a class="btn btn-principal" href="#proyectos">Ver proyectos</a>
+      <a class="btn btn-secundario" href="#contacto">Contactar</a>
+    </div>
   </header>
 
-  <main>
+  <main class="contenedor">
+
     <section id="sobre-mi">
       <h2>Sobre mí</h2>
-      <p>Soy estudiante de Desarrollo de Aplicaciones Multiplataforma (DAM). Me interesa la programación y estoy aprendiendo Java, bucles, arrays y control de versiones con Git y GitHub.</p>
-    </section>
-
-    <section id="proyectos">
-      <h2>Proyectos</h2>
-      <ul>
-        <li><a href="https://github.com/gonzalo95md/programacion-dam" target="_blank" rel="noopener">Programación DAM</a>: ejercicios de bucles y arrays en Java.</li>
-        <li>Gestor de tareas: práctica para aprender Git y GitHub.</li>
-      </ul>
+      <div class="panel">
+        <p>Soy estudiante de Desarrollo de Aplicaciones Multiplataforma (DAM). Me interesa la programación y estoy aprendiendo Java, bucles, arrays y control de versiones con Git y GitHub. Este portfolio recoge mis prácticas y se irá ampliando con nuevos proyectos.</p>
+      </div>
     </section>
 
     <section id="habilidades">
       <h2>Habilidades</h2>
-      <ul>
-        <li>Java: bucles, arrays y fundamentos de programación.</li>
-        <li>Git y GitHub: control de versiones y publicación con GitHub Pages.</li>
-        <li>HTML y CSS: estructura y estilo de páginas web.</li>
+      <ul class="chips">
+        <li>Java</li>
+        <li>Git</li>
+        <li>GitHub</li>
+        <li>GitHub Pages</li>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
       </ul>
+    </section>
+
+    <section id="proyectos">
+      <h2>Proyectos</h2>
+      <div class="tarjetas">
+
+        <article class="tarjeta">
+          <h3>Programación DAM</h3>
+          <p>Ejercicios del módulo de Programación: bucles y arrays en Java.</p>
+          <div class="etiquetas"><span>Java</span><span>Git</span></div>
+          <div class="enlaces">
+            <a href="https://github.com/gonzalo95md/programacion-dam" target="_blank" rel="noopener">Código</a>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <h3>Dado</h3>
+          <p>Lanzador de dado en el navegador que genera un número aleatorio del 1 al 6.</p>
+          <div class="etiquetas"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <div class="enlaces">
+            <a href="https://gonzalo95md.github.io/dado/" target="_blank" rel="noopener">Ver web</a>
+            <a href="https://github.com/gonzalo95md/dado" target="_blank" rel="noopener">Código</a>
+          </div>
+        </article>
+
+        <article class="tarjeta">
+          <h3>Conversor de temperatura</h3>
+          <p>Convierte grados Celsius a Fahrenheit y viceversa con tres ficheros y sin librerías.</p>
+          <div class="etiquetas"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <div class="enlaces">
+            <a href="https://gonzalo95md.github.io/conversor/" target="_blank" rel="noopener">Ver web</a>
+            <a href="https://github.com/gonzalo95md/conversor" target="_blank" rel="noopener">Código</a>
+          </div>
+        </article>
+
+      </div>
     </section>
 
     <section id="contacto">
       <h2>Contacto</h2>
-      <form action="https://formspree.io/f/TU_ID_AQUI" method="POST">
-        <div>
-          <label for="nombre">Nombre</label>
-          <input type="text" id="nombre" name="nombre" required>
-        </div>
-        <div>
-          <label for="email">Correo electrónico</label>
-          <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-          <label for="asunto">Asunto</label>
-          <input type="text" id="asunto" name="asunto">
-        </div>
-        <div>
-          <label for="mensaje">Mensaje</label>
-          <textarea id="mensaje" name="mensaje" required></textarea>
-        </div>
-        <input type="text" name="_gotcha" class="oculto" tabindex="-1" autocomplete="off">
-        <button type="submit" class="enviar">Enviar mensaje</button>
-      </form>
+      <div class="panel">
+        <form action="https://formspree.io/f/TU_ID_AQUI" method="POST">
+          <div class="fila">
+            <div>
+              <label for="nombre">Nombre</label>
+              <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div>
+              <label for="email">Correo electrónico</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+          </div>
+          <div>
+            <label for="asunto">Asunto</label>
+            <input type="text" id="asunto" name="asunto">
+          </div>
+          <div>
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" required></textarea>
+          </div>
+          <input type="text" name="_gotcha" class="oculto" tabindex="-1" autocomplete="off">
+          <button type="submit" class="enviar">Enviar mensaje</button>
+        </form>
+      </div>
     </section>
+
   </main>
 
   <footer>
-    <p>Contacto: <a href="https://github.com/gonzalo95md">github.com/gonzalo95md</a></p>
+    <p>&copy; 2026 Gonzalo &middot; <a href="https://github.com/gonzalo95md">github.com/gonzalo95md</a></p>
   </footer>
 
   <script>
-    var btn = document.getElementById('btn-portfolio');
-    var menu = document.getElementById('menu-portfolio');
-    btn.addEventListener('click', function (e) {
+    var btnPortfolio = document.getElementById('btn-portfolio');
+    var menuPortfolio = document.getElementById('menu-portfolio');
+    var btnMenu = document.getElementById('btn-menu');
+    var menu = document.getElementById('menu');
+
+    // Desplegable de Portfolio
+    btnPortfolio.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var abierto = menuPortfolio.classList.toggle('abierto');
+      btnPortfolio.setAttribute('aria-expanded', abierto);
+    });
+
+    // Menú hamburguesa en móvil
+    btnMenu.addEventListener('click', function (e) {
       e.stopPropagation();
       var abierto = menu.classList.toggle('abierto');
-      btn.setAttribute('aria-expanded', abierto);
+      btnMenu.setAttribute('aria-expanded', abierto);
     });
+
+    // Cerrar todo al hacer clic fuera o en un enlace
     document.addEventListener('click', function () {
-      menu.classList.remove('abierto');
-      btn.setAttribute('aria-expanded', 'false');
+      menuPortfolio.classList.remove('abierto');
+      btnPortfolio.setAttribute('aria-expanded', 'false');
+    });
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        menu.classList.remove('abierto');
+        btnMenu.setAttribute('aria-expanded', 'false');
+      });
     });
   </script>
 
